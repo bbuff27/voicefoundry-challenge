@@ -16,9 +16,9 @@ provider:
 
 functions:
   swapi:
-    handler: handler.swapi
+    handler: lambdas/swapi/handler.main
     events:
       - http:
           path: swapi
-          method: get
-
+          method: post
+    environment: ${file(./env.json)}
