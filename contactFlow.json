@@ -1,0 +1,645 @@
+{
+  "modules": [
+    {
+      "id": "39926297-eebe-4cbf-a68b-82a45b28d254",
+      "type": "SetLoggingBehavior",
+      "branches": [
+        {
+          "condition": "Success",
+          "transition": "41403cc2-2577-4449-b1aa-f5e846f1af47"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "LoggingBehavior",
+          "value": "Enable"
+        }
+      ],
+      "metadata": {
+        "position": {
+          "x": 199,
+          "y": 26
+        }
+      }
+    },
+    {
+      "id": "1d6427cd-6d05-458b-b344-c52b8b92b7e5",
+      "type": "SetVoice",
+      "branches": [
+        {
+          "condition": "Success",
+          "transition": "bff657c3-05c0-4d41-bcfd-95182f16d828"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "GlobalVoice",
+          "value": "Mia"
+        }
+      ],
+      "metadata": {
+        "position": {
+          "x": 869,
+          "y": 208
+        },
+        "overrideConsoleVoice": false,
+        "defaultVoice": "Standard"
+      }
+    },
+    {
+      "id": "bff657c3-05c0-4d41-bcfd-95182f16d828",
+      "type": "PlayPrompt",
+      "branches": [
+        {
+          "condition": "Success",
+          "transition": "aa296005-952a-4d6f-a728-4f66567f880f"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "Text",
+          "value": "Welcome to the Star Wars information hotline!",
+          "namespace": null
+        },
+        {
+          "name": "TextToSpeechType",
+          "value": "text"
+        }
+      ],
+      "metadata": {
+        "position": {
+          "x": 35,
+          "y": 412
+        },
+        "useDynamic": false
+      }
+    },
+    {
+      "id": "d63c641d-8f0a-4151-aa72-ec8274319f43",
+      "type": "SetVoice",
+      "branches": [
+        {
+          "condition": "Success",
+          "transition": "bff657c3-05c0-4d41-bcfd-95182f16d828"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "GlobalVoice",
+          "value": "Joanna"
+        },
+        {
+          "name": "GlobalEngine",
+          "value": "Neural"
+        },
+        {
+          "name": "SpeakingStyle",
+          "value": "Conversational"
+        }
+      ],
+      "metadata": {
+        "position": {
+          "x": 867,
+          "y": 15
+        },
+        "overrideConsoleVoice": true,
+        "defaultVoice": "Conversational"
+      }
+    },
+    {
+      "id": "e3f053d5-b76d-43bb-888c-cf16d2e56c0b",
+      "type": "PlayPrompt",
+      "branches": [
+        {
+          "condition": "Success",
+          "transition": "632f275d-b020-40b6-83ee-e5be072fb11a"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "Text",
+          "value": "Forwarding to an agent to further assist in your search!",
+          "namespace": null
+        },
+        {
+          "name": "TextToSpeechType",
+          "value": "text"
+        }
+      ],
+      "metadata": {
+        "position": {
+          "x": 1448,
+          "y": 60
+        },
+        "useDynamic": false
+      }
+    },
+    {
+      "id": "632f275d-b020-40b6-83ee-e5be072fb11a",
+      "type": "SetQueue",
+      "branches": [
+        {
+          "condition": "Success",
+          "transition": "e2153eb9-6aca-48b7-bc3d-2d2f91725693"
+        },
+        {
+          "condition": "Error",
+          "transition": "328fa4cb-a0cd-485f-88c4-367beddaff8d"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "Agent",
+          "value": "arn:aws:connect:us-east-1:000349521104:instance/d4927d86-9c3d-4385-9a16-04348109a082/agent/317a0fe6-35a4-45f4-81e5-37d19b49893d",
+          "namespace": null,
+          "resourceName": "bbuff27 (Bill Buff)"
+        }
+      ],
+      "metadata": {
+        "position": {
+          "x": 1776,
+          "y": 49
+        },
+        "useDynamic": false,
+        "queue": {
+          "id": "arn:aws:connect:us-east-1:000349521104:instance/d4927d86-9c3d-4385-9a16-04348109a082/agent/317a0fe6-35a4-45f4-81e5-37d19b49893d",
+          "text": "bbuff27 (Bill Buff)"
+        }
+      }
+    },
+    {
+      "id": "e2153eb9-6aca-48b7-bc3d-2d2f91725693",
+      "type": "Transfer",
+      "branches": [
+        {
+          "condition": "AtCapacity",
+          "transition": "46f12cdf-85f2-4b9a-b524-9529ed790ebb"
+        },
+        {
+          "condition": "Error",
+          "transition": "328fa4cb-a0cd-485f-88c4-367beddaff8d"
+        }
+      ],
+      "parameters": [],
+      "metadata": {
+        "position": {
+          "x": 2084,
+          "y": 37
+        },
+        "useDynamic": false,
+        "queue": null
+      },
+      "target": "Queue"
+    },
+    {
+      "id": "41403cc2-2577-4449-b1aa-f5e846f1af47",
+      "type": "GetUserInput",
+      "branches": [
+        {
+          "condition": "Evaluate",
+          "conditionType": "Equals",
+          "conditionValue": "1",
+          "transition": "d63c641d-8f0a-4151-aa72-ec8274319f43"
+        },
+        {
+          "condition": "Evaluate",
+          "conditionType": "Equals",
+          "conditionValue": "2",
+          "transition": "1d6427cd-6d05-458b-b344-c52b8b92b7e5"
+        },
+        {
+          "condition": "Timeout",
+          "transition": "d63c641d-8f0a-4151-aa72-ec8274319f43"
+        },
+        {
+          "condition": "NoMatch",
+          "transition": "d63c641d-8f0a-4151-aa72-ec8274319f43"
+        },
+        {
+          "condition": "Error",
+          "transition": "caa7a539-7cfa-47d4-be84-d975e9c9c6f2"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "Text",
+          "value": "To proceed in English, please press 1. para español por favor presione 2.",
+          "namespace": null
+        },
+        {
+          "name": "TextToSpeechType",
+          "value": "text"
+        },
+        {
+          "name": "Timeout",
+          "value": "5"
+        },
+        {
+          "name": "MaxDigits",
+          "value": "1"
+        }
+      ],
+      "metadata": {
+        "position": {
+          "x": 494,
+          "y": 23
+        },
+        "conditionMetadata": [
+          {
+            "id": "da591ccf-61cb-4ad1-9754-5262dd220d17",
+            "value": "1"
+          },
+          {
+            "id": "62b4c752-85e0-4321-a5b7-cd6f841a0d0b",
+            "value": "2"
+          }
+        ],
+        "useDynamic": false
+      },
+      "target": "Digits"
+    },
+    {
+      "id": "46f12cdf-85f2-4b9a-b524-9529ed790ebb",
+      "type": "PlayPrompt",
+      "branches": [
+        {
+          "condition": "Success",
+          "transition": "caa7a539-7cfa-47d4-be84-d975e9c9c6f2"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "Text",
+          "value": "We are experiencing a high call volume right now. Please try again later.",
+          "namespace": null
+        },
+        {
+          "name": "TextToSpeechType",
+          "value": "text"
+        }
+      ],
+      "metadata": {
+        "position": {
+          "x": 2392,
+          "y": 62
+        },
+        "useDynamic": false
+      }
+    },
+    {
+      "id": "caa7a539-7cfa-47d4-be84-d975e9c9c6f2",
+      "type": "Disconnect",
+      "branches": [],
+      "parameters": [],
+      "metadata": {
+        "position": {
+          "x": 2337,
+          "y": 534
+        }
+      }
+    },
+    {
+      "id": "ab418d9f-5779-4836-9bb6-46d690a0454b",
+      "type": "SetAttributes",
+      "branches": [
+        {
+          "condition": "Success",
+          "transition": "ce2144c5-90e7-4e76-a1a1-9cdb250ec137"
+        },
+        {
+          "condition": "Error",
+          "transition": "328fa4cb-a0cd-485f-88c4-367beddaff8d"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "Attribute",
+          "value": "people",
+          "key": "customerSelection",
+          "namespace": null
+        }
+      ],
+      "metadata": {
+        "position": {
+          "x": 581,
+          "y": 419
+        }
+      }
+    },
+    {
+      "id": "ce2144c5-90e7-4e76-a1a1-9cdb250ec137",
+      "type": "PlayPrompt",
+      "branches": [
+        {
+          "condition": "Success",
+          "transition": "a54883c1-3c48-48dc-9d3e-c0656ab7ced9"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "Text",
+          "value": "Please hold while we search options for you.",
+          "namespace": null
+        },
+        {
+          "name": "TextToSpeechType",
+          "value": "text"
+        }
+      ],
+      "metadata": {
+        "position": {
+          "x": 897,
+          "y": 485
+        },
+        "useDynamic": false
+      }
+    },
+    {
+      "id": "aa296005-952a-4d6f-a728-4f66567f880f",
+      "type": "GetUserInput",
+      "branches": [
+        {
+          "condition": "Evaluate",
+          "conditionType": "Equals",
+          "conditionValue": "1",
+          "transition": "ab418d9f-5779-4836-9bb6-46d690a0454b"
+        },
+        {
+          "condition": "Evaluate",
+          "conditionType": "Equals",
+          "conditionValue": "2",
+          "transition": "9dae3141-cd42-4189-ae0d-e579542c7c07"
+        },
+        {
+          "condition": "Timeout",
+          "transition": "caa7a539-7cfa-47d4-be84-d975e9c9c6f2"
+        },
+        {
+          "condition": "NoMatch",
+          "transition": "ab418d9f-5779-4836-9bb6-46d690a0454b"
+        },
+        {
+          "condition": "Error",
+          "transition": "328fa4cb-a0cd-485f-88c4-367beddaff8d"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "Text",
+          "value": "Please select an option from the menu. Press 1 to learn more about a character. Press 2 to learn about a particular planet.",
+          "namespace": null
+        },
+        {
+          "name": "TextToSpeechType",
+          "value": "text"
+        },
+        {
+          "name": "Timeout",
+          "value": "5"
+        },
+        {
+          "name": "MaxDigits",
+          "value": "1"
+        }
+      ],
+      "metadata": {
+        "position": {
+          "x": 297,
+          "y": 445
+        },
+        "conditionMetadata": [
+          {
+            "id": "9413cdd3-02a7-465c-9c61-0764e39f6038",
+            "value": "1"
+          },
+          {
+            "id": "3bd2c140-0b4a-4741-bdfb-4f2a1c8c1943",
+            "value": "2"
+          }
+        ],
+        "useDynamic": false
+      },
+      "target": "Digits"
+    },
+    {
+      "id": "9dae3141-cd42-4189-ae0d-e579542c7c07",
+      "type": "SetAttributes",
+      "branches": [
+        {
+          "condition": "Success",
+          "transition": "ce2144c5-90e7-4e76-a1a1-9cdb250ec137"
+        },
+        {
+          "condition": "Error",
+          "transition": "328fa4cb-a0cd-485f-88c4-367beddaff8d"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "Attribute",
+          "value": "planets",
+          "key": "customerSelection",
+          "namespace": null
+        }
+      ],
+      "metadata": {
+        "position": {
+          "x": 574,
+          "y": 738
+        }
+      }
+    },
+    {
+      "id": "1b28fd53-2fcf-4c22-8697-570313befe16",
+      "type": "GetUserInput",
+      "branches": [
+        {
+          "condition": "Evaluate",
+          "conditionType": "Equals",
+          "conditionValue": "1",
+          "transition": "e3f053d5-b76d-43bb-888c-cf16d2e56c0b"
+        },
+        {
+          "condition": "Evaluate",
+          "conditionType": "Equals",
+          "conditionValue": "2",
+          "transition": "ce2144c5-90e7-4e76-a1a1-9cdb250ec137"
+        },
+        {
+          "condition": "Timeout",
+          "transition": "caa7a539-7cfa-47d4-be84-d975e9c9c6f2"
+        },
+        {
+          "condition": "NoMatch",
+          "transition": "e3f053d5-b76d-43bb-888c-cf16d2e56c0b"
+        },
+        {
+          "condition": "Error",
+          "transition": "328fa4cb-a0cd-485f-88c4-367beddaff8d"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "Text",
+          "value": "The current options are $.Attributes.optionsString. Are any of these options what you were looking for? Press 1 for yes or 2 for no.",
+          "namespace": null
+        },
+        {
+          "name": "TextToSpeechType",
+          "value": "text"
+        },
+        {
+          "name": "Timeout",
+          "value": "5"
+        },
+        {
+          "name": "MaxDigits",
+          "value": "1"
+        }
+      ],
+      "metadata": {
+        "position": {
+          "x": 1153,
+          "y": 14
+        },
+        "conditionMetadata": [
+          {
+            "id": "1e7f1d03-d870-469c-aa76-67a753e14749",
+            "value": "1"
+          },
+          {
+            "id": "8031c679-4a42-4d4a-97af-87833b3b0513",
+            "value": "2"
+          }
+        ],
+        "useDynamic": false
+      },
+      "target": "Digits"
+    },
+    {
+      "id": "328fa4cb-a0cd-485f-88c4-367beddaff8d",
+      "type": "PlayPrompt",
+      "branches": [
+        {
+          "condition": "Success",
+          "transition": "caa7a539-7cfa-47d4-be84-d975e9c9c6f2"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "Text",
+          "value": "There was an issue. Please try again later",
+          "namespace": null
+        },
+        {
+          "name": "TextToSpeechType",
+          "value": "text"
+        }
+      ],
+      "metadata": {
+        "position": {
+          "x": 1997,
+          "y": 390
+        },
+        "useDynamic": false
+      }
+    },
+    {
+      "id": "a54883c1-3c48-48dc-9d3e-c0656ab7ced9",
+      "type": "InvokeExternalResource",
+      "branches": [
+        {
+          "condition": "Success",
+          "transition": "ab733ecc-03f6-4a0d-b044-829ede3d7749"
+        },
+        {
+          "condition": "Error",
+          "transition": "328fa4cb-a0cd-485f-88c4-367beddaff8d"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "FunctionArn",
+          "value": "arn:aws:lambda:us-east-1:000349521104:function:voicefoundry-dev-swapi",
+          "namespace": null
+        },
+        {
+          "name": "TimeLimit",
+          "value": "3"
+        },
+        {
+          "name": "Parameter",
+          "key": "customerSelection",
+          "value": "$.Attributes.customerSelection",
+          "namespace": null
+        }
+      ],
+      "metadata": {
+        "position": {
+          "x": 1229,
+          "y": 482
+        },
+        "dynamicMetadata": {
+          "customerSelection": false
+        },
+        "useDynamic": false
+      },
+      "target": "Lambda"
+    },
+    {
+      "id": "ab733ecc-03f6-4a0d-b044-829ede3d7749",
+      "type": "SetAttributes",
+      "branches": [
+        {
+          "condition": "Success",
+          "transition": "1b28fd53-2fcf-4c22-8697-570313befe16"
+        },
+        {
+          "condition": "Error",
+          "transition": "328fa4cb-a0cd-485f-88c4-367beddaff8d"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "Attribute",
+          "value": "$.External.optionsString",
+          "key": "optionsString",
+          "namespace": "User Defined"
+        },
+        {
+          "name": "Attribute",
+          "value": "$.External.agentInfo",
+          "key": "agentInfo",
+          "namespace": "User Defined"
+        },
+        {
+          "name": "Attribute",
+          "value": "$.External.currentPage",
+          "key": "pageNumber",
+          "namespace": "User Defined"
+        }
+      ],
+      "metadata": {
+        "position": {
+          "x": 1495,
+          "y": 484
+        }
+      }
+    }
+  ],
+  "version": "1",
+  "type": "contactFlow",
+  "start": "39926297-eebe-4cbf-a68b-82a45b28d254",
+  "metadata": {
+    "entryPointPosition": {
+      "x": 15,
+      "y": 25
+    },
+    "snapToGrid": false,
+    "name": "SWAPI flow",
+    "description": null,
+    "type": "contactFlow",
+    "status": "published",
+    "hash": "3e962522bcb4fb5c5b44409d3887bf4e570ebc609764a609a61f4607af59a2dd"
+  }
+}
