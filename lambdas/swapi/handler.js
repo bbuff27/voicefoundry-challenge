@@ -1,4 +1,4 @@
-import { success, failure } from '../../util/responses';
+import { failure } from '../../util/responses';
 
 const axios = require('axios');
 
@@ -19,17 +19,17 @@ export const main = async event => {
 
     if(results.length === 0) throw new Error(`Could not locate any ${customerSelection} for that selection`);
 
-    const responseBody = {
+    const response = {
       currentPage,
       optionsString: buildAttributeString(results),
-      agentInfo: results,
+      agentInfo: JSON.stringify(results),
     }
 
-    console.log(`Successful response: ${results}`);
-    return success(responseBody);
+    console.log(`Successful response: ${response}`);
+    return response;
   } catch (error) {
     console.error(error);
-    return failure({ error });
+    return failure(error);
   }
 };
 
